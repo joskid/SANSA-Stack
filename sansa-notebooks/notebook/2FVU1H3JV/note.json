@@ -1,0 +1,68 @@
+{
+  "paragraphs": [
+    {
+      "text": "import net.sansa_stack.ml.spark.utils.FeatureExtractingSparqlGenerator.autoPrepo\nimport org.apache.jena.graph.Node\nimport org.apache.jena.riot.Lang\nimport org.apache.spark.sql.{Encoders, SparkSession}\nimport net.sansa_stack.rdf.spark.io._\nimport org.apache.jena.sys.JenaSystem\nimport org.apache.spark.sql.{DataFrame, Dataset, Encoders, SparkSession}\n\nval inputFilePath: String \u003d \"hdfs://namenode:8020/data/test.ttl\"\nval seedVarName \u003d \"?seed\"\nval whereClauseForSeed \u003d \"?seed a \u003chttp://dig.isi.edu/Person\u003e\"\nval maxUp: Int \u003d 5\nval maxDown: Int \u003d 5\nval seedNumber: Int \u003d 0\nval seedNumberAsRatio: Double \u003d 1.0\n\nimplicit val nodeTupleEncoder \u003d Encoders.kryo(classOf[(Node, Node, Node)])\n\nval df \u003d spark.read.rdf(Lang.TURTLE)(inputFilePath)\n\nval (totalSparqlQuery: String, var_names: List[String]) \u003d autoPrepo(\n  df \u003d df,\n  seedVarName \u003d seedVarName,\n  seedWhereClause \u003d whereClauseForSeed,\n  maxUp \u003d maxUp,\n  maxDown \u003d maxDown,\n  numberSeeds \u003d seedNumber,\n  ratioNumberSeeds \u003d seedNumberAsRatio\n)\nprintln(totalSparqlQuery)",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-22 14:01:58.085",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "java.lang.NullPointerException\n\tat org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:64)\n\tat org.apache.spark.storage.BlockManager.initialize(BlockManager.scala:241)\n\tat org.apache.spark.SparkContext.\u003cinit\u003e(SparkContext.scala:509)\n\tat org.apache.spark.SparkContext$.getOrCreate(SparkContext.scala:2493)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:933)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:924)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:924)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.spark2CreateContext(BaseSparkScalaInterpreter.scala:202)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.createSparkContext(BaseSparkScalaInterpreter.scala:124)\n\tat org.apache.zeppelin.spark.SparkScala211Interpreter.open(SparkScala211Interpreter.scala:87)\n\tat org.apache.zeppelin.spark.NewSparkInterpreter.open(NewSparkInterpreter.java:102)\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:62)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:69)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:617)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:188)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:140)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1608645433466_-101679534",
+      "id": "20201222-135713_954052968",
+      "dateCreated": "2020-12-22 13:57:13.466",
+      "dateStarted": "2020-12-22 14:00:12.295",
+      "dateFinished": "2020-12-22 14:01:50.637",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1608645611785_-1499473875",
+      "id": "20201222-140011_1308701993",
+      "dateCreated": "2020-12-22 14:00:11.785",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "RDF2Feature",
+  "id": "2FVU1H3JV",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
